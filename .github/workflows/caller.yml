@@ -1,0 +1,21 @@
+name: Caller Workflow
+ 
+on:
+  workflow_dispatch:
+    inputs:
+      user_input:
+        description: "Enter azure to deploy to azure or aws to deploy to aws"
+        required: true
+        type: choice
+        options:
+          - "azure"
+          - "aws"
+ 
+jobs:
+  call-deployAKS:
+    if: ${{ github.event.inputs.user_input == 'azure' }}
+    uses: Sreeprada6303/AKS-EKS-WORKFLOW/.github/workflows/deployAKS.yml@main
+ 
+  call-deployEKS:
+    if: ${{ github.event.inputs.user_input == 'aws' }}
+    uses: Sreeprada6303/AKS-EKS-WORKFLOW/.github/workflows/deployEKS.yml@main
